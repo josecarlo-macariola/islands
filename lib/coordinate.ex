@@ -5,7 +5,7 @@ defmodule IslandsEngine.Coordinate do
 
 	def start_link() do
 		Agent.start_link(fn -> %Coordinate{} end)
-	end	
+	end
 
 	def guess(coordinate) do
 		Agent.update(coordinate, fn state -> Map.put(state, :guessed?, true) end)
@@ -32,6 +32,10 @@ defmodule IslandsEngine.Coordinate do
 
 	def set_in_island(coordinate, value) when is_atom value do
 		Agent.update(coordinate, fn state -> Map.put(state, :in_island, value) end)
+	end
+
+	def to_string(coordinate) do
+		"(in_island:#{island(coordinate)}, guessed:#{guessed?(coordinate)})"
 	end
 
 end
